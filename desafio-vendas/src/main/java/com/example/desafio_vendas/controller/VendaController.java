@@ -5,6 +5,7 @@ import com.example.desafio_vendas.service.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,10 @@ public class VendaController {
     public ResponseEntity<List<Venda>> listarVendas() {
         List<Venda> vendas = vendaService.listarTodasAsVendas();
         return ResponseEntity.ok(vendas);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<com.example.desafio_vendas.model.Venda> buscarVendaPorId(@PathVariable Long id) {
+        com.example.desafio_vendas.model.Venda venda = vendaService.buscarVendaPorId(id);
+        return ResponseEntity.ok(venda);
     }
 }

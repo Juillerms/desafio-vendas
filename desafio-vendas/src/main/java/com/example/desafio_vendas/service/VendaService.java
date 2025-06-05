@@ -1,5 +1,6 @@
 package com.example.desafio_vendas.service;
 
+import com.example.desafio_vendas.exception.ResourceNotFoundException;
 import com.example.desafio_vendas.model.Venda;
 import com.example.desafio_vendas.repository.VendaRepository; // 1. Importe o repository
 import org.springframework.beans.factory.annotation.Autowired; // Para injeção de dependência
@@ -26,11 +27,13 @@ public class VendaService {
     }
 
     public Venda buscarVendaPorId(Long id) {
-        return vendaRepository.findById(id).orElse(null);
+    return vendaRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Venda com ID " + id + " não foi encontrada."));
     }
 
     public void deletarVenda(Long id) {
         vendaRepository.deleteById(id);
     }
+    
 
 }
